@@ -8,6 +8,7 @@ import classes from './AddUser.module.css';
 const AddUser = (props) => {
   const nameInputref = useRef();
   const ageInputref = useRef();
+  const collegeInputref = useRef();
  
   const [error, setError] = useState();
 
@@ -15,7 +16,8 @@ const AddUser = (props) => {
     event.preventDefault();
     const enteredname = nameInputref.current.value;
     const entereduserage = ageInputref.current.value;
-    if (enteredname.trim().length === 0 || entereduserage.trim().length === 0) {
+    const enteredcollege = collegeInputref.current.value;
+    if (enteredname.trim().length === 0 || entereduserage.trim().length === 0 || enteredcollege.trim().length === 0) {
       setError({
         title: 'Invalid input',
         message: 'Please enter a valid name and age (non-empty values).',
@@ -29,9 +31,10 @@ const AddUser = (props) => {
       });
       return;
     }
-    props.onAddUser(enteredname, entereduserage);
+    props.onAddUser(enteredname, entereduserage, enteredcollege);
     nameInputref.current.value = '';
     ageInputref.current.value = '';
+    collegeInputref.current.value = '';
 
     
   };
@@ -56,16 +59,20 @@ const AddUser = (props) => {
           <label htmlFor="username">Username</label>
           <input
             id="username"
-            type="text"
-            
+            type="text"            
             ref={nameInputref}
           />
           <label htmlFor="age">Age (Years)</label>
           <input
             id="age"
-            type="number"
-            
+            type="number"            
             ref={ageInputref}
+          />
+          <label htmlFor="college">college Name</label>
+          <input
+            id="college"
+            type="text"            
+            ref={collegeInputref}
           />
           <Button type="submit">Add User</Button>
         </form>
